@@ -2,6 +2,7 @@ import src.controllers.usuarioController as usuarioController
 import src.controllers.vendedorController as vendedorController
 import src.controllers.produtoController as produtoController
 import src.controllers.compraController as compraController
+import src.controllers.redisController as redisController
 
 
 
@@ -124,6 +125,35 @@ def compra_create():
 @cross_origin()
 def compra_delete():
 	return compraController.delete(request)
+
+
+# Redis
+@app.route("/produto/redis/incremento_view", methods=['GET'])
+@cross_origin()
+def incrementar_view_produto():
+	return redisController.incrementar_view_produto(request)
+
+@app.route("/website/redis/incremento_view", methods=['GET'])
+@cross_origin()
+def incrementar_view_website():
+	return redisController.incrementar_view_website()
+
+@app.route("/website/redis/relatorio-geral", methods=['GET'])
+@cross_origin()
+def relatorio_geral():
+	return redisController.relatorio_geral()
+
+@app.route("/redis/delete-keys", methods=['DELETE'])
+@cross_origin()
+def delete_all_keys():
+	return redisController.delete_all_keys()
+
+@app.route("/redis/salvar-relatorio", methods=['POST'])
+@cross_origin()
+def salvar_relatorio():
+	return redisController.salvar_relatorio()
+
+
 
 
 if __name__ == '__main__':
