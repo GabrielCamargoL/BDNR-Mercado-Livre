@@ -3,6 +3,7 @@ import src.controllers.vendedorController as vendedorController
 import src.controllers.produtoController as produtoController
 import src.controllers.compraController as compraController
 import src.controllers.redisController as redisController
+import src.controllers.cassandraController as cassandraController
 
 
 
@@ -150,10 +151,15 @@ def delete_all_keys():
 
 @app.route("/redis/salvar-relatorio", methods=['POST'])
 @cross_origin()
-def salvar_relatorio():
+def salvar_relatorioRedis():
 	return redisController.salvar_relatorio()
 
-
+#--------------------------------------------------------------------
+#cassandra routes
+@app.route("/cassandra/salvar-relatorio", methods=['POST'])
+@cross_origin()
+def salvar_relatorioCassandra():
+	return cassandraController.show()
 
 
 if __name__ == '__main__':
