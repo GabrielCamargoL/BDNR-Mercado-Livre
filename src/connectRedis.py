@@ -2,9 +2,9 @@ import redis
 
 def connect():
   redisConn = redis.Redis(
-    host='host',
-    port='porta',
-    password='senha'
+    host='redis-18734.c11.us-east-1-2.ec2.cloud.redislabs.com',
+    port='18734',
+    password='nYckWRumUwKwOLgqVDFD3nIgchp2StQA'
   )
 
   return redisConn

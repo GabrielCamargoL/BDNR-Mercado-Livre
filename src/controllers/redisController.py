@@ -83,26 +83,21 @@ def relatorio_geral():
 
 
 def salvar_relatorio():
-  try:
-    hoje = date.today()
-    hoje_formatado = hoje.strftime("%d/%m/%Y")
+  hoje = date.today()
+  hoje_formatado = hoje.strftime("%d/%m/%Y")
 
-    relatorio = bd_mercado_livre.relatorio
+  relatorio = bd_mercado_livre.relatorio
 
-    relatorio_salvo = {
-      "backup_dia": hoje_formatado,
-      "dados": json.loads(relatorio_geral())
-    }
+  relatorio_salvo = {
+    "backup_dia": hoje_formatado,
+    "dados": json.loads(relatorio_geral())
+  }
 
-    print(relatorio_salvo)
+  print(relatorio_salvo)
 
-    relatorio.insert_one(relatorio_salvo)
+  relatorio.insert_one(relatorio_salvo)
 
-    return json.dumps({"message":"salvo com sucesso"})
-  
-  except:
-    return json.dumps({"message":"ocorreu um erro, tente novamente mais tarde"})
-
+  return json.dumps({"message":"salvo com sucesso"})
 
 
 def delete_all_keys():
