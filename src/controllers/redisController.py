@@ -93,7 +93,6 @@ def salvar_relatorio():
     "dados": json.loads(relatorio_geral())
   }
 
-  print(relatorio_salvo)
 
   relatorio.insert_one(relatorio_salvo)
 

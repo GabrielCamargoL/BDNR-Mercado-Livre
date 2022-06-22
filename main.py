@@ -159,8 +159,12 @@ def salvar_relatorioRedis():
 @app.route("/cassandra/salvar-relatorio", methods=['POST'])
 @cross_origin()
 def salvar_relatorioCassandra():
-	return cassandraController.show()
+	return cassandraController.insert()
 
+@app.route("/cassandra/relatorio", methods=['GET'])
+@cross_origin()
+def mostrar_relatorioCassandra():
+	return cassandraController.show()
 
 if __name__ == '__main__':
 	app.run(debug=True)
