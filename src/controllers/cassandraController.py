@@ -5,11 +5,12 @@ import uuid
 
 cursor = connectCassandra.connect()
 
+
+ASTRA_DB_KEYSPACE = "mercadolivre"
+ASTRA_DB_TABLE = "usuario"
+
 def show():
-  cliff_uuid = str(uuid.uuid4())
-  cursor.create(path=cliff_uuid, document={
-    "first_name": "Cliff",
-    "last_name": "Wicklow",
-  })
+  result = cursor.execute("SELECT * FROM mercadolivre.usuario")
+  result = result[0]
   
-  return json.dumps({"hasError": False, "Message": "acertou"})
+  return json.dumps({"nome":f'{result.nome} {result.sobrenome}'})

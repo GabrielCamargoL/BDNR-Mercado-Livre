@@ -1,5 +1,8 @@
 import os
-from astrapy.collections import create_client
+from astrapy.client import create_astra_client
+
+from cassandra.cluster import Cluster
+from cassandra.auth import PlainTextAuthProvider
 
 # get Astra connection information from environment variables
 ASTRA_DB_ID = str(os.environ.get("DB_ID"))
@@ -9,11 +12,14 @@ ASTRA_DB_KEYSPACE = 'mercadolivre'
 TEST_COLLECTION_NAME = "test"
 
 def connect():
-  # setup an Astra Client and create a shortcut to our test colllection
-  astra_client = create_client(
-    astra_database_id=ASTRA_DB_ID,
-    astra_database_region=ASTRA_DB_REGION,
-    astra_application_token=ASTRA_DB_APPLICATION_TOKEN
-  )
+  cloud_config= {'secure_connect_bundle': './secure-connect-fatec.zip'}
+  auth_provider = PlainTextAuthProvider('zKYtLKEdlqbsFrwcjslRhtME','+xifG4JQxh_o4ydu2aYRkYL5YIoilwSb63IF57K86n_AriS+5r7Pr8Odri8No.axCapArbUZXBv6eTTsnGim_RG3-0SOx8HGXtjap_QTb03hxYcJDuByHX-Hx4rNmRoI')
+  cluster = Cluster(cloud=cloud_config, auth_provider=auth_provider)
+  session = cluster.connect()
 
-  return astra_client.namespace(ASTRA_DB_KEYSPACE).collection(TEST_COLLECTION_NAME)
+  row = session.execute("select release_version from system.local").one()
+  if row:
+    print(row[0])
+  else:
+    print("An error occurred.")
+  return session
